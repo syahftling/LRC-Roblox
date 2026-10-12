@@ -22,13 +22,24 @@ export const notificationTypes = {
   legendary: { label: 'Legendary Egg', color: 0x3b82f6, emoji: '🥚' },
   mythic: { label: 'Mythic Egg', color: 0xf97316, emoji: '🥚' },
   cosmic: { label: 'Cosmic Egg', color: 0xef4444, emoji: '🥚' },
-  divine: { label: 'Divine Egg', color: 0xfacc15, emoji: '🥚' },
-  eternal: { label: 'Eternal Egg', color: 0xa855f7, emoji: '🥚' },
-  secret: { label: 'Secret Egg', color: 0x858585, emoji: '🥚' },
+  divine: { label: 'Divine Egg', color: 0xfacc15, emoji: '🟡' },
+  eternal: { label: 'Eternal Egg', color: 0xa855f7, emoji: '🟣' },
+  secret: { label: 'Secret Egg', color: 0x858585, emoji: '⚫' },
   events: { label: 'Game Events', color: 0x5865f2, emoji: '🎉' },
   admin_abuse: { label: 'Admin Abuse', color: 0xef4444, emoji: '⚡' },
   butterfly: { label: 'Butterfly Bloom', color: 0xec4899, emoji: '🦋' },
+  race: { label: 'Race Event', color: 0x14b8a6, emoji: '🏁' },
   other: { label: 'Other Egg Alerts', color: 0x7289da, emoji: '🥚' },
+};
+
+export const roleNotificationTypes = {
+  secret: notificationTypes.secret,
+  eternal: notificationTypes.eternal,
+  divine: notificationTypes.divine,
+  events: notificationTypes.events,
+  admin_abuse: notificationTypes.admin_abuse,
+  butterfly: notificationTypes.butterfly,
+  race: notificationTypes.race,
 };
 
 function emptyState() {
@@ -92,7 +103,7 @@ function normalizeKey(value) {
 
 function tierKey(value) {
   const normalized = normalizeKey(value).replace(/_egg$/, '');
-  return Object.hasOwn(notificationTypes, normalized) && !['events', 'admin_abuse', 'butterfly', 'other'].includes(normalized)
+  return Object.hasOwn(notificationTypes, normalized) && !['events', 'admin_abuse', 'butterfly', 'race', 'other'].includes(normalized)
     ? normalized
     : 'other';
 }
@@ -101,6 +112,7 @@ function eventKey(value) {
   const normalized = normalizeKey(value);
   if (normalized.includes('admin_abuse') || normalized.includes('adminabuse')) return 'admin_abuse';
   if (normalized.includes('butterfly')) return 'butterfly';
+  if (normalized.includes('race') || normalized.includes('racing')) return 'race';
   return 'events';
 }
 
@@ -113,7 +125,7 @@ function rolePing(roleId) {
 }
 
 function buttonRows() {
-  const entries = Object.entries(notificationTypes);
+  const entries = Object.entries(roleNotificationTypes);
   const rows = [];
   for (let index = 0; index < entries.length; index += 5) {
     const row = new ActionRowBuilder().addComponents(
@@ -247,7 +259,7 @@ function fromDiscordWebhook(input) {
     return {
       id: input.id,
       type: 'event',
-      category: /butterfly/i.test(eventText) ? 'butterfly' : /admin abuse/i.test(eventText) ? 'admin_abuse' : 'events',
+      category: /butterfly/i.test(eventText) ? 'butterfly' : /admin abuse/i.test(eventText) ? 'admin_abuse' : /race|racing/i.test(eventText) ? 'race' : 'events',
       title: title || webhookField(fields, ['event']),
       description,
       status: /active|started|live/i.test(eventText) ? 'active' : 'upcoming',
@@ -347,7 +359,7 @@ export class EggNotifier {
     }
 
     const roles = {};
-    for (const [key, details] of Object.entries(notificationTypes)) {
+    for (const [key, details] of Object.entries(roleNotificationTypes)) {
       let role = guild.roles.cache.find((item) => item.name === details.label);
       if (!role) {
         role = await guild.roles.create({
@@ -406,7 +418,7 @@ export class EggNotifier {
   async handleButton(interaction) {
     if (!interaction.isButton?.() || !interaction.customId?.startsWith('eggnotify:role:')) return false;
     const key = interaction.customId.slice('eggnotify:role:'.length);
-    if (!Object.hasOwn(notificationTypes, key)) {
+    if (!Object.hasOwn(roleNotificationTypes, key)) {
       await interaction.reply({ content: 'Pilihan role ini tidak dikenal.', ephemeral: true });
       return true;
     }
@@ -445,7 +457,7 @@ export class EggNotifier {
         .setTitle('Egg Notifier belum disiapkan')
         .setDescription('Jalankan `/eggnotify setup` dan pilih channel notifikasi serta channel panel role.');
     }
-    const roleLines = Object.entries(guildConfig.roles || {}).map(([key, roleId]) => `• ${notificationTypes[key]?.label || key}: <@&${roleId}>`);
+    const roleLines = Object.entries(guildConfig.roles || {}).map(([key, roleId]) => `• ${roleNotificationTypes[key]?.label || key}: <@&${roleId}>`);
     return new EmbedBuilder()
       .setColor(0x5865f2)
       .setTitle('Status Egg Notifier')
