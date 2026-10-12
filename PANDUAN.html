@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panduan LRC Roblox</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b0d12;
+      --panel: #131722;
+      --panel-2: #191f2d;
+      --text: #f5f7fb;
+      --muted: #aeb8c8;
+      --accent: #ff334f;
+      --accent-2: #55b7ff;
+      --border: rgba(255,255,255,.09);
+      --code: #0a0c11;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,51,79,.12), transparent 30%),
+        radial-gradient(circle at top left, rgba(85,183,255,.10), transparent 28%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+    header { padding: 72px 0 42px; }
+    .badge {
+      display: inline-flex;
+      padding: 7px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--accent-2);
+      background: rgba(85,183,255,.08);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+    }
+    h1 { margin: 18px 0 10px; font-size: clamp(38px, 8vw, 68px); line-height: 1; }
+    .lead { max-width: 760px; color: var(--muted); font-size: 18px; }
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.035);
+      padding: 9px 13px;
+      border-radius: 10px;
+    }
+    nav a:hover { border-color: rgba(85,183,255,.55); }
+    main { padding-bottom: 70px; }
+    section {
+      background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.015));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: clamp(20px, 4vw, 34px);
+      margin: 18px 0;
+      box-shadow: 0 18px 60px rgba(0,0,0,.18);
+    }
+    h2 { margin-top: 0; font-size: 26px; }
+    h3 { margin-bottom: 6px; }
+    p { color: var(--muted); }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+    .card code { color: var(--accent-2); }
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    pre {
+      margin: 14px 0 0;
+      padding: 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--code);
+      color: #dce8ff;
+      overflow-x: auto;
+      white-space: pre-wrap;
+    }
+    table { width: 100%; border-collapse: collapse; overflow: hidden; }
+    th, td { text-align: left; padding: 13px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--accent-2); font-size: 13px; text-transform: uppercase; letter-spacing: .08em; }
+    td { color: var(--muted); }
+    td code { color: var(--text); }
+    .status { display: grid; gap: 10px; }
+    .status div { border-left: 3px solid var(--accent-2); padding: 9px 12px; background: rgba(85,183,255,.055); border-radius: 0 10px 10px 0; }
+    .notice { border-left: 3px solid var(--accent); padding: 12px 15px; background: rgba(255,51,79,.07); border-radius: 0 12px 12px 0; color: var(--muted); }
+    footer { color: var(--muted); text-align: center; padding: 10px 0 50px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    @media (max-width: 760px) {
+      header { padding-top: 44px; }
+      .grid { grid-template-columns: 1fr; }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 1px solid var(--border); padding: 10px 0; }
+      td { border: 0; padding: 5px 0; }
+      td::before { content: attr(data-label); display: block; color: var(--accent-2); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <span class="badge">[ LRC ROBLOX ]</span>
+      <h1>Panduan Penggunaan</h1>
+      <p class="lead">Gunakan slash command atau prefix <code>lrc.</code> untuk melihat avatar, profil, presence, grup, role grup, dan item Roblox langsung dari Discord.</p>
+      <nav>
+        <a href="#mulai">Mulai</a>
+        <a href="#command">Command</a>
+        <a href="#avatar">Check Avatar</a>
+        <a href="#presence">Presence</a>
+        <a href="#egg-notifier">Egg Notifier</a>
+        <a href="#masalah">Troubleshooting</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="mulai">
+      <h2>Cara menggunakan</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Slash command</h3>
+          <p>Ketik tanda <code>/</code>, pilih command milik LRC Roblox, isi parameter, lalu kirim.</p>
+          <pre>/profile username
+/presence username
+/checkavatarlink username</pre>
+        </div>
+        <div class="card">
+          <h3>Prefix command</h3>
+          <p>Ketik prefix <code>lrc.</code> diikuti nama command dan parameter.</p>
+          <pre>lrc.profile username
+lrc.presence username
+lrc.checkavatarlink username</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="command">
+      <h2>Daftar command</h2>
+      <table>
+        <thead>
+          <tr><th>Slash</th><th>Prefix</th><th>Fungsi</th></tr>
+        </thead>
+        <tbody>
+          <tr><td data-label="Slash"><code>/help</code></td><td data-label="Prefix"><code>lrc.help</code></td><td data-label="Fungsi">Menampilkan daftar command.</td></tr>
+          <tr><td data-label="Slash"><code>/ping</code></td><td data-label="Prefix"><code>lrc.ping</code></td><td data-label="Fungsi">Mengecek respons bot dan Discord API.</td></tr>
+          <tr><td data-label="Slash"><code>/eggnotify setup</code></td><td data-label="Prefix">—</td><td data-label="Fungsi">Menyiapkan channel dan panel role notifikasi Steal An Egg.</td></tr>
+          <tr><td data-label="Slash"><code>/eggnotify status</code></td><td data-label="Prefix">—</td><td data-label="Fungsi">Melihat konfigurasi notifikasi egg/event.</td></tr>
+          <tr><td data-label="Slash"><code>/eggnotify test</code></td><td data-label="Prefix">—</td><td data-label="Fungsi">Menampilkan preview embed notifikasi tanpa ping role.</td></tr>
+          <tr><td data-label="Slash"><code>/profile username</code></td><td data-label="Prefix"><code>lrc.profile username</code></td><td data-label="Fungsi">Melihat informasi profil Roblox.</td></tr>
+          <tr><td data-label="Slash"><code>/presence username</code></td><td data-label="Prefix"><code>lrc.presence username</code></td><td data-label="Fungsi">Melihat status Offline, Online, Sedang bermain, atau Roblox Studio.</td></tr>
+          <tr><td data-label="Slash"><code>/group group</code></td><td data-label="Prefix"><code>lrc.group group</code></td><td data-label="Fungsi">Melihat informasi grup Roblox.</td></tr>
+          <tr><td data-label="Slash"><code>/grouproles group</code></td><td data-label="Prefix"><code>lrc.grouproles group</code></td><td data-label="Fungsi">Melihat rank, Rank ID, dan Role ID grup.</td></tr>
+          <tr><td data-label="Slash"><code>/item asset</code></td><td data-label="Prefix"><code>lrc.item asset</code></td><td data-label="Fungsi">Melihat informasi item berdasarkan Asset ID.</td></tr>
+          <tr><td data-label="Slash"><code>/checkavatarid username</code></td><td data-label="Prefix"><code>lrc.checkavatarid username</code></td><td data-label="Fungsi">Melihat avatar dan Asset ID item yang dipakai.</td></tr>
+          <tr><td data-label="Slash"><code>/checkavatarlink username</code></td><td data-label="Prefix"><code>lrc.checkavatarlink username</code></td><td data-label="Fungsi">Melihat avatar dan tautan item Roblox.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="avatar">
+      <h2>Check Avatar</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Versi Asset ID</h3>
+          <p>Gunakan saat membutuhkan ID item yang sedang dipakai oleh akun Roblox.</p>
+          <pre>/checkavatarid username
+lrc.checkavatarid username</pre>
+        </div>
+        <div class="card">
+          <h3>Versi tautan</h3>
+          <p>Nama item akan tampil sebagai teks biru yang dapat diklik menuju halaman Roblox.</p>
+          <pre>/checkavatarlink username
+lrc.checkavatarlink username</pre>
+        </div>
+      </div>
+    </section>
+
+    <section id="presence">
+      <h2>Status Presence</h2>
+      <div class="status">
+        <div><strong>Offline</strong> — akun tidak sedang aktif di Roblox.</div>
+        <div><strong>Online</strong> — akun sedang membuka Roblox atau berada di lobby.</div>
+        <div><strong>Sedang bermain</strong> — akun sedang berada di dalam experience.</div>
+        <div><strong>Roblox Studio</strong> — akun sedang menggunakan Roblox Studio.</div>
+      </div>
+    </section>
+
+    <section id="egg-notifier">
+      <h2>Notifikasi Steal An Egg</h2>
+      <p>Pengelola server dengan izin Manage Server dapat menjalankan <code>/eggnotify setup</code>, memilih channel notifikasi, channel panel role, dan opsi <code>source_channel</code> sebagai channel privat sumber webhook. Bot akan menyiapkan role kategori dan tombol pilihan.</p>
+      <pre>/eggnotify setup
+/eggnotify status
+/eggnotify test</pre>
+      <div class="notice">Event publik yang dijadwalkan pada Roblox dipantau otomatis. Notifikasi spawn egg aktual dan event yang berjalan dalam siklus game, seperti Butterfly Bloom, membutuhkan sumber data real-time terpisah. Bot tidak mengarang spawn dari timer.</div>
+      <p>Di Railway, gunakan <code>EGG_DATA_DIR=/app/data</code> dan pasang Volume dengan mount path <code>/app/data</code> agar konfigurasi channel, role, serta riwayat event bertahan saat redeploy.</p>
+    </section>
+
+    <section id="contoh">
+      <h2>Contoh penggunaan</h2>
+      <pre>/profile Rullzz4SchulloLRC
+/presence Rullzz4SchulloLRC
+/group 573957203
+/grouproles 573957203
+/item 104536729705573
+/checkavatarid Rullzz4SchulloLRC
+/checkavatarlink Rullzz4SchulloLRC</pre>
+    </section>
+
+    <section id="masalah">
+      <h2>Jika command tidak bekerja</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Slash command</h3>
+          <p>Ketik <code>/</code> lalu pilih command dari daftar Discord. Jangan mengirim teks slash command sebagai pesan biasa.</p>
+        </div>
+        <div class="card">
+          <h3>Prefix command</h3>
+          <p>Pastikan prefix ditulis tepat sebagai <code>lrc.</code>, kemudian beri spasi sebelum parameter.</p>
+        </div>
+      </div>
+      <p class="notice">Jangan pernah memberikan password Roblox, kode 2FA, cookie <code>.ROBLOSECURITY</code>, atau data login lainnya.</p>
+    </section>
+  </main>
+
+  <footer>&lt;/&gt; crafted by Rullvelion</footer>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "private": true,
+  "type": "module",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "register": "node scripts/register-commands.js",
+    "check": "node --check src/index.js && node --check src/command-data.js && node --check src/commands.js && node --check src/services/roblox.js && node --check src/services/egg-notifier.js && node --check src/utils/format.js && node --check scripts/register-commands.js"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "discord.js": "14.27.0"
+  }
+}
